@@ -23,12 +23,13 @@ services:
       - GITEA__mailer__SMTP_ADDR=${GITEA_MAILER_HOST:-}
       - GITEA__mailer__SMTP_PORT=${GITEA_MAILER_PORT:-465}
       - GITEA__mailer__USER=${GITEA_MAILER_USER:-}
-      - GITEA__mailer__PASSWD="""${GITEA_MAILER_PASS:-}"""
+      - GITEA__mailer__PASSWD=${GITEA_MAILER_PASS:-}
     restart: unless-stopped
     networks:
       - gitea
     volumes:
       - ./gitea:/data
+      - ./assets:/data/gitea/public/assets
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:
