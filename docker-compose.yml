@@ -4,7 +4,7 @@ networks:
 
 services:
   server:
-    image: docker.gitea.com/gitea:1.25.1
+    image: docker.gitea.com/gitea:1.25.2
     container_name: gitea
     environment:
       - TZ=${TIMEZONE:-UTC}
@@ -30,6 +30,7 @@ services:
     volumes:
       - ./gitea:/data
       - ./assets:/data/gitea/public/assets
+      - ./templates:/data/gitea/templates
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:
