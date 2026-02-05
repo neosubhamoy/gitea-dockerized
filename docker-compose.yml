@@ -4,7 +4,7 @@ networks:
 
 services:
   server:
-    image: docker.gitea.com/gitea:1.25.3
+    image: docker.gitea.com/gitea:1.25.4
     container_name: gitea
     environment:
       - TZ=${TIMEZONE:-UTC}
