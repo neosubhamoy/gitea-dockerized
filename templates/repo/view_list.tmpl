@@ -1,8 +1,8 @@
 {{/* use grid layout, still use the old ID because there are many other CSS styles depending on this ID */}}
 <div id="repo-files-table" {{if .HasFilesWithoutLatestCommit}}hx-indicator="#repo-files-table .repo-file-cell.message" hx-trigger="load" hx-swap="morph" hx-post="{{.LastCommitLoaderURL}}"{{end}}>
-	<div class="github-theme-templates repo-file-line repo-file-last-commit">
+	<div class="gitea-github-theme-templates repo-file-line repo-file-last-commit">
 		{{template "repo/latest_commit" .}}
-		<div class="github-latest-time">
+		<div class="gitea-github-theme-latest-time">
 			{{if and .LatestCommit .LatestCommit.Committer}}
 				<a href="{{ (print .RepoLink "/commit") }}/{{.LatestCommit.ID}}" class="muted" rel="nofollow">
 					{{- ShortSha .LatestCommit.ID.String -}}
@@ -12,12 +12,12 @@
 			{{end}}
 		</div>
 		{{if and (not .TreeNames) (.Permission.CanRead ctx.Consts.RepoUnitTypeCode) (not .IsEmptyRepo)}}
-		<a class="github-latest-commit item muted" href="{{.RepoLink}}/commits/{{.RefFullName.RefWebLinkPath}}">
+		<a class="gitea-github-theme-latest-commit item muted" href="{{.RepoLink}}/commits/{{.RefFullName.RefWebLinkPath}}">
 			{{svg "octicon-history" 16}} <b>{{ctx.Locale.PrettyNumber .CommitsCount}}</b> {{ctx.Locale.TrN .CommitsCount "repo.commit" "repo.commits"}}
 		</a>
 		{{end}}
 		{{if and .TreeNames (not .IsViewFile) (not .IsBlame)}}{{/* IsViewDirectory (not home), TODO: split the templates, avoid using "if" tricks */}}
-			<a class="github-latest-commit item muted" href="{{.RepoLink}}/commits/{{.RefTypeNameSubURL}}/{{.TreePath | PathEscapeSegments}}">
+			<a class="gitea-github-theme-latest-commit item muted" href="{{.RepoLink}}/commits/{{.RefTypeNameSubURL}}/{{.TreePath | PathEscapeSegments}}">
 				{{svg "octicon-history" 16}}{{ctx.Locale.Tr "repo.file_history"}}
 			</a>
 		{{end}}
@@ -39,7 +39,7 @@
 					{{$submoduleLink := $submoduleFile.SubmoduleWebLinkTree ctx}}
 					{{if $submoduleLink}}
 						<a class="entry-name" href="{{$submoduleLink.RepoWebLink}}" title="{{$entry.Name}}">{{$entry.Name}}</a>
-						@ <a class="text primary" href="{{$submoduleLink.CommitWebLink}}">{{ShortSha $submoduleFile.RefID}}</a>
+						@ <a class="tw-text-primary" href="{{$submoduleLink.CommitWebLink}}">{{ShortSha $submoduleFile.RefID}}</a>
 					{{else}}
 						<span class="entry-name" title="{{$entry.Name}}">{{$entry.Name}}</span>
 						@ {{ShortSha $submoduleFile.RefID}}
@@ -54,7 +54,7 @@
 								{{$subJumpablePathName}}
 							{{else}}
 								{{$subJumpablePathPrefixes := slice $subJumpablePathFields 0 $subJumpablePathFieldLast}}
-								<span class="text light-2">{{StringUtils.Join $subJumpablePathPrefixes "/"}}</span>/{{index $subJumpablePathFields $subJumpablePathFieldLast}}
+								<span class="tw-text-text-light-2">{{StringUtils.Join $subJumpablePathPrefixes "/"}}</span>/{{index $subJumpablePathFields $subJumpablePathFieldLast}}
 							{{end}}
 						</a>
 					{{else}}
@@ -65,7 +65,7 @@
 					{{end}}
 				{{end}}
 			</div>
-			<div class="repo-file-cell message loading-icon-2px">
+			<div class="repo-file-cell message commit-summary loading-icon-2px">
 				{{if $commit}}
 					{{$commitLink := printf "%s/commit/%s" $.RepoLink (PathEscape $commit.ID.String)}}
 					{{ctx.RenderUtils.RenderCommitMessageLinkSubject $commit.Message $commitLink $.Repository}}
